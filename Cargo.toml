@@ -1,0 +1,14 @@
+[package]
+name = "cts-math"
+version = "0.1.1"
+authors = ["tanghy <tanghy@cloudthink.space>"]
+homepage = "https://www.cloudthink.space"
+publish = true
+edition = "2024"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/CloudThinkSpace/cts-math"
+rust-version = "1.85.0"
+description = "这是一个数学计算库"
+
+[dependencies]
+num = "0.4.3"
