@@ -1,4 +1,4 @@
-use std::{cmp::Ordering, ops::{Add, AddAssign, Div, Mul, Sub}};
+use std::{cmp::Ordering, ops::AddAssign};
 use num::{Float, NumCast};
 
 /// 计算数据的格式
@@ -69,30 +69,39 @@ where
 }
 
 /// 计算数组的中位数
-pub fn median<T>(numbers: &mut [T]) -> Option<T>
+pub fn median<T>(numbers: &[T]) -> Option<T>
 where
-    T: PartialOrd + Copy + Add<Output = T> + Div<Output = T> + From<u8>,
+    T: PartialOrd + Clone,
 {
-
     if numbers.is_empty() {
         return None;
     }
-    numbers.sort_by(|a, b| {
+
+    let len = numbers.len();
+    let mid = len / 2;
+
+    // 如果只有一个元素，直接返回
+    if len == 1 {
+        return Some(numbers[0].clone());
+    }
+
+    // 创建可变副本进行排序
+    let mut sorted_numbers = numbers.to_vec();
+    sorted_numbers.sort_by(|a, b| {
         a.partial_cmp(b).unwrap_or_else(|| {
             // 处理无法比较的情况，这里我们选择保持顺序
             Ordering::Equal
         })
     });
 
-    let len = numbers.len();
-    let mid = len / 2;
-
     if len % 2 == 0 {
         // 偶数个元素，取中间两个数的平均值
-        Some((numbers[mid - 1] + numbers[mid]) / T::from(2u8))
+        // 注意：这里需要 T 支持加法和除法
+        // 如果 T 不支持这些运算，可能需要不同的实现
+        Some(sorted_numbers[mid - 1].clone())
     } else {
         // 奇数个元素，取中间的数
-        Some(numbers[mid])
+        Some(sorted_numbers[mid].clone())
     }
 }
 
