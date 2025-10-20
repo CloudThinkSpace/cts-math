@@ -3,7 +3,7 @@ use num::{Float, NumCast};
 
 /// 计算数据的格式
 pub fn count<T>(data: &[T]) -> usize {
-    data.iter().count()
+    data.len()
 }
 
 /// 计算数组的最小值
@@ -88,7 +88,7 @@ where
     // 创建可变副本进行排序
     let mut sorted_numbers = numbers.to_vec();
     sorted_numbers.sort_by(|a, b| {
-        a.partial_cmp(b).unwrap_or_else(|| {
+        a.partial_cmp(b).unwrap_or({
             // 处理无法比较的情况，这里我们选择保持顺序
             Ordering::Equal
         })

@@ -1,6 +1,6 @@
 [package]
 name = "cts-math"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["tanghy <tanghy@cloudthink.space>"]
 homepage = "https://www.cloudthink.space"
 publish = true
